@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body>
-    <form action="/register" method="post">
-        Email<input name="email" type="email"/><br>
-        Password<input name="password" type="password"/><br>
+    <form th:object="${user}" action="/register" method="post">
+        Email<input th:field="${user.email}" name="email" type="email"/><br><span th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
+        Password<input th:field="${user.password}" name="password" type="password"/><br><span th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></span>
         <input type="submit"/>
     </form>
 
