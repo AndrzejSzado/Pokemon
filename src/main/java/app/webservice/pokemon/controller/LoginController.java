@@ -8,22 +8,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.webservice.pokemon.model.User;
 
 @Controller
-public class RegisterController {
+public class LoginController {
+
     private UserService userService;
 
-    public RegisterController(UserService userService) {
+    public LoginController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/register")
-    public String getRegisterPage(){
-        return "register";
+    @GetMapping("/log-in")
+    public String getLoginPage(){
+        return "login";
     }
 
-    @PostMapping("/register")
-    public String registerUser(String email,String password){
-        UserRequest userRequest = new UserRequest(email,password);
-        userService.save(userRequest);
+    @PostMapping("/log-in")
+    public String logIn(String email, String password){
+        UserRequest user = new UserRequest(email, password);
+        userService.login(user);
         return "index";
     }
+
 }
