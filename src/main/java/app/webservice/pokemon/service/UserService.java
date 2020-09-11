@@ -1,5 +1,6 @@
 package app.webservice.pokemon.service;
 
+import app.webservice.pokemon.exceptions.UserServiceException;
 import app.webservice.pokemon.repository.UserRepository;
 import app.webservice.pokemon.request.UserRequest;
 import org.springframework.stereotype.Service;
@@ -20,21 +21,26 @@ public class UserService {
     public void login(UserRequest userRequest){
         Optional<User> user = repository.findByEmail(userRequest.getEmail());
         if (user.isPresent() && user.get().getPassword().equals(userRequest.getPassword())){
-            System.out.println("zalogowany na: " + user.get());
+            System.out.println("logged as: " + user.get());
             loggedUser = user.get();
         }
         else {
-            //TODO error
+            throw new UserServiceException("Wrong email or password");
         }
     }
 
     public void save(UserRequest userRequest){
         User user = new User(userRequest.getEmail(),userRequest.getPassword());
-        repository.save(user);
+        if(repository.existsByEmail(user.getEmail())){
+            throw new UserServiceException("User already exists");
+        }
+        else {
+            repository.save(user);
+        }
     }
 
     public String getStatus(){
-        return !isLogged()? "niezalogowany":"zalogowany jako " + loggedUser.getEmail();
+        return !isLogged()? "not logged":"logged as " + loggedUser.getEmail();
     }
 
     public boolean isLogged(){
