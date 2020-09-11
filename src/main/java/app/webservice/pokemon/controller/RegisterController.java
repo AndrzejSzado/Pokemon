@@ -24,6 +24,6 @@ public class RegisterController {
     public String registerUser(String email,String password){
         UserRequest userRequest = new UserRequest(email,password);
         userService.save(userRequest);
-        return "index";
+        return "redirect:/";
     }
 }

@@ -32,4 +32,8 @@ public class UserService {
         User user = new User(userRequest.getEmail(),userRequest.getPassword());
         repository.save(user);
     }
+
+    public String getStatus(){
+        return loggedUser == null? "niezalogowany":"zalogowany jako" + loggedUser.getEmail();
+    }
 }

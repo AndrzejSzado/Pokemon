@@ -25,7 +25,7 @@ public class LoginController {
     public String logIn(String email, String password){
         UserRequest user = new UserRequest(email, password);
         userService.login(user);
-        return "index";
+        return "redirect:/";
     }
 
 }
