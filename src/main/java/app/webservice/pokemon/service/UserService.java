@@ -34,6 +34,10 @@ public class UserService {
     }
 
     public String getStatus(){
-        return loggedUser == null? "niezalogowany":"zalogowany jako" + loggedUser.getEmail();
+        return isLogged()? "niezalogowany":"zalogowany jako " + loggedUser.getEmail();
+    }
+
+    public boolean isLogged(){
+        return loggedUser == null;
     }
 }

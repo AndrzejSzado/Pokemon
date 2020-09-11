@@ -15,7 +15,8 @@ public class HomeController {
 
     @GetMapping
     public String getHomePage(Model model){
-        model.addAttribute("status", userService.getStatus());
+        model.addAttribute("statusInfo", userService.getStatus());
+        model.addAttribute("logged", userService.isLogged());
         return "index";
     }
 
