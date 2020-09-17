@@ -16,16 +16,16 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping("/log-in")
-    public String getLoginPage(){
-        return "login";
-    }
-
-    @PostMapping("/log-in")
-    public String logIn(String email, String password){
-        UserRequest user = new UserRequest(email, password);
-        userService.login(user);
-        return "redirect:/";
-    }
+//    @GetMapping("/log-in")
+//    public String getLoginPage(){
+//        return "login";
+//    }
+//
+//    @PostMapping("/log-in")
+//    public String logIn(String email, String password){
+//        UserRequest user = new UserRequest(email, password);
+//        userService.login(user);
+//        return "redirect:/";
+//    }
 
 }
