@@ -29,7 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/console/**").permitAll()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .loginPage("/login")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 
     @Override

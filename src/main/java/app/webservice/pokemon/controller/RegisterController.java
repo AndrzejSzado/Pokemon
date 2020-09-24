@@ -34,7 +34,6 @@ public class RegisterController {
         if (bindingResult.hasErrors()){
             return "register";
         }
-        System.out.println(userRequest);
         try {
             userService.save(userRequest);
         }catch (UserServiceException e){

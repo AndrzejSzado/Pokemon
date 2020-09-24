@@ -18,22 +18,10 @@ public class UserService implements UserDetailsService {
 
     private UserRepository repository;
     private PasswordEncoder encoder;
-    private User loggedUser = null;
 
     public UserService(UserRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
         this.encoder = encoder;
-    }
-
-    public void login(UserRequest userRequest){
-        Optional<User> user = repository.findByName(userRequest.getEmail());
-        if (user.isPresent() && user.get().getPassword().equals(userRequest.getPassword())){
-            System.out.println("logged as: " + user.get());
-            loggedUser = user.get();
-        }
-        else {
-            throw new UserServiceException("Wrong email or password");
-        }
     }
 
     public void save(UserRequest userRequest){
@@ -47,11 +35,11 @@ public class UserService implements UserDetailsService {
     }
 
     public String getStatus(){
-        return !isLogged()? "not logged":"logged as " + loggedUser.getUsername();
+        return !isLogged()? "not logged":"logged as " + getLoggedUser().get().getUsername();
     }
 
     public boolean isLogged(){
-        return loggedUser != null;
+        return getLoggedUser().isPresent();
     }
 
     @Override
@@ -59,13 +47,21 @@ public class UserService implements UserDetailsService {
         return repository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public User getLoggedUser() {
+//    public User getLoggedUserOrThrow() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        if (principal instanceof User) {
+//            return (User)principal;
+//        } else {
+//            throw new UserServiceException("User not logged");
+//        }
+//    }
+    public Optional<User> getLoggedUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         if (principal instanceof User) {
-            return (User)principal;
+            return Optional.of((User)principal);
         } else {
-            throw new UserServiceException("User not logged");
+            return Optional.empty();
         }
     }
 }

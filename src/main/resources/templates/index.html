@@ -10,6 +10,7 @@
     <a th:if="${!logged}" href="/register">register</a>
     <a th:if="${!logged}" href="/login">log in</a>
     <a th:if="${logged}" href="/open-booster">open booster</a>
+    <a th:if="${logged}" href="/logout">log out</a>
 
     <p>Status zalogowanego <div th:text="${statusInfo}"></div></p>
 </body>
