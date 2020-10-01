@@ -12,6 +12,7 @@
 </form>
 <div th:each="card:${cards}">
     <div th:text="${card.name}"></div>
+    <img th:src="${card.imageUrl}">
 </div>
 
 </body>
