@@ -18,29 +18,17 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    @PostConstruct
-    public void addCard(){
-        Card card = new Card("Pitchachu");
-        Card card1 = new Card("Charizad");
-        Card card2 = new Card("Bulbazaur");
-        Card card3 = new Card("Snorlax");
-        Card card4 = new Card("Voltorb");
-
-        cardRepository.save(card);
-        cardRepository.save(card1);
-        cardRepository.save(card2);
-        cardRepository.save(card3);
-        cardRepository.save(card4);
-    }
-
     public List<Card> getRandomBooster(){
+
         Random random = new Random();
-        List<Card> cards = new ArrayList<>();
+        List<Card> cards = cardRepository.findAll();
+        List<Card> randomCards = new ArrayList<>();
+
         for (int i = 0; i < 5; i++) {
-            int randomNumber = random.nextInt((int)cardRepository.count())+1;
-            Optional<Card> card = cardRepository.findById(randomNumber);
-            card.ifPresent(c -> cards.add(c));
+            int randomNumber = random.nextInt(cards.size());
+            Card card = cards.get(randomNumber);
+            randomCards.add(card);
         }
-        return cards;
+        return randomCards;
     }
 }

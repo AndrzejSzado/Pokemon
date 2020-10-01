@@ -9,10 +9,11 @@ import java.util.Objects;
 public class Card {
 
     @Id
-    @GeneratedValue
-    private int id;
+    private String id;
 
     private String name;
+
+    private String imageUrl;
 
     public Card(String name) {
         this.name = name;
@@ -21,7 +22,7 @@ public class Card {
     public Card() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -29,10 +30,15 @@ public class Card {
         return name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     @Override
     public String toString() {
         return "Card{" +
                 "name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
