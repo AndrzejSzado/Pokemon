@@ -24,20 +24,20 @@ public class RegisterController {
     @GetMapping("/register")
     public String getRegisterPage(Model model){
         UserRequest userRequest = new UserRequest();
-        model.addAttribute("user", userRequest);
+        model.addAttribute("appUser", userRequest);
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserRequest userRequest, BindingResult bindingResult){
+    public String registerUser(@Valid @ModelAttribute("appUser") UserRequest userRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "register";
         }
         try {
-            userService.save(userRequest);
+            userService.register(userRequest);
         }catch (UserServiceException e){
 //            e.printStackTrace();
-            bindingResult.addError(new FieldError("user","email", e.getMessage()));
+            bindingResult.addError(new FieldError("appUser","email", e.getMessage()));
             return "register";
         }
 

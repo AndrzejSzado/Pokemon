@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>My Cards</title>
+</head>
+<body>
+
+<div th:each="card:${cards.keySet()}">
+    <div th:text="${card.name}"></div>
+    <img th:src="${card.imageUrl}">
+    <div th:text="${cards.get(card) + 'x'}"></div>
+</div>
+
+</body>
+</html>

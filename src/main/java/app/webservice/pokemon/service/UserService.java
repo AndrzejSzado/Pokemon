@@ -24,13 +24,13 @@ public class UserService implements UserDetailsService {
         this.encoder = encoder;
     }
 
-    public void save(UserRequest userRequest){
+    public void register(UserRequest userRequest){
         AppUser appUser = new AppUser(userRequest.getEmail(),encoder.encode(userRequest.getPassword()));
         if(repository.existsByName(appUser.getUsername())){
             throw new UserServiceException("User already exists");
         }
         else {
-            repository.save(appUser);
+            save(appUser);
         }
     }
 
@@ -60,5 +60,7 @@ public class UserService implements UserDetailsService {
         return getLoggedUser().orElseThrow();
     }
 
-
+    public void save(AppUser appUser){
+        repository.save(appUser);
+    }
 }

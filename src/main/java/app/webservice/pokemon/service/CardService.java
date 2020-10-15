@@ -4,12 +4,9 @@ package app.webservice.pokemon.service;
 import app.webservice.pokemon.model.AppUser;
 import app.webservice.pokemon.model.Card;
 import app.webservice.pokemon.repository.CardRepository;
-import app.webservice.pokemon.request.UserRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
-import javax.annotation.PostConstruct;
 
 
 @Service
@@ -17,8 +14,9 @@ public class CardService {
     private CardRepository cardRepository;
     private UserService userService;
 
-    public CardService(CardRepository cardRepository) {
+    public CardService(CardRepository cardRepository, UserService userService) {
         this.cardRepository = cardRepository;
+        this.userService = userService;
     }
 
     public List<Card> openRandomBooster(){
@@ -32,6 +30,8 @@ public class CardService {
             Card card = cards.get(randomNumber);
             randomCards.add(card);
         }
+        loggedUser.addCards(randomCards);
+        userService.save(loggedUser);
         return randomCards;
     }
 }
