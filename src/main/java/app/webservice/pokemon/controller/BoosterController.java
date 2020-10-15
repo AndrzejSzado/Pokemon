@@ -24,7 +24,7 @@ public class BoosterController {
 
     @PostMapping("/booster")
     public String openBoosterCards(Model model){
-        List<Card> cards = cardService.getRandomBooster();
+        List<Card> cards = cardService.openRandomBooster();
         model.addAttribute("cards",cards );
         return "booster";
     }

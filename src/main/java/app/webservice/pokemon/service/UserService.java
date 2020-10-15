@@ -1,6 +1,7 @@
 package app.webservice.pokemon.service;
 
 import app.webservice.pokemon.exceptions.UserServiceException;
+import app.webservice.pokemon.model.AppUser;
 import app.webservice.pokemon.repository.UserRepository;
 import app.webservice.pokemon.request.UserRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import app.webservice.pokemon.model.User;
 
 import java.util.Optional;
 
@@ -25,12 +25,12 @@ public class UserService implements UserDetailsService {
     }
 
     public void save(UserRequest userRequest){
-        User user = new User(userRequest.getEmail(),encoder.encode(userRequest.getPassword()));
-        if(repository.existsByName(user.getUsername())){
+        AppUser appUser = new AppUser(userRequest.getEmail(),encoder.encode(userRequest.getPassword()));
+        if(repository.existsByName(appUser.getUsername())){
             throw new UserServiceException("User already exists");
         }
         else {
-            repository.save(user);
+            repository.save(appUser);
         }
     }
 
@@ -47,21 +47,18 @@ public class UserService implements UserDetailsService {
         return repository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-//    public User getLoggedUserOrThrow() {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        if (principal instanceof User) {
-//            return (User)principal;
-//        } else {
-//            throw new UserServiceException("User not logged");
-//        }
-//    }
-    public Optional<User> getLoggedUser() {
+    public Optional<AppUser> getLoggedUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof User) {
-            return Optional.of((User)principal);
+        if (principal instanceof AppUser) {
+            return Optional.of((AppUser)principal);
         } else {
             return Optional.empty();
         }
     }
+
+    public AppUser getLoggedUserOrThrow() {
+        return getLoggedUser().orElseThrow();
+    }
+
+
 }

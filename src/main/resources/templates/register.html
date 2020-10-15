@@ -6,9 +6,9 @@
     <title>Register</title>
 </head>
 <body>
-    <form th:object="${user}" action="/register" method="post">
-        <p>Email<input th:field="${user.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-        <p>Password<input th:field="${user.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+    <form th:object="${appUser}" action="/register" method="post">
+        <p>Email<input th:field="${appUser.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+        <p>Password<input th:field="${appUser.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
         <input type="submit"/>
     </form>
 

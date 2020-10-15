@@ -7,11 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 @Entity
-public class User implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -19,13 +18,14 @@ public class User implements UserDetails {
 
     private String name;
     private String password;
+    private List<Card> cards = new ArrayList<>();
 
-    public User(String email, String password) {
+    public AppUser(String email, String password) {
         this.name = email;
         this.password = password;
     }
 
-    private User() {
+    private AppUser() {
     }
 
     @Override
@@ -41,6 +41,10 @@ public class User implements UserDetails {
     @Override
     public String getUsername() {
         return name;
+    }
+
+    public void addCards(Collection<Card> newCards){
+        cards.addAll(newCards);
     }
 
     @Override
