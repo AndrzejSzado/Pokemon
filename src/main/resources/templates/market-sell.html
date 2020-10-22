@@ -9,10 +9,11 @@
 <div th:each="card:${cards.keySet()}">
     <div th:text="${cards.get(card) + 'x'}"></div>
     <img th:src="${card.imageUrl}">
-    <form action="/market/sell" method="post">
-        <p>Quantity<input th:field="${auctionRequest.quantity}" type="number" min="1" th:max="${cards.get(card)}"></p>
-        <p>Price<input th:field="${auctionRequest.price}" type="number" min="1"></p>
-        <input th:field="${auctionRequest.card}"  type="submit" value="Sell">
+    <form action="/market/sell" th:object="${auctionRequest}" method="post">
+        <p>Quantity<input name="quantity" type="number" min="1" th:max="${cards.get(card)}"></p>
+        <p>Price<input name="price" type="number" min="1"></p>
+        <input type="hidden" name="cardId" th:value = "${card.id}" >
+        <input type="submit" value="Sell">
     </form>
 </div>
 

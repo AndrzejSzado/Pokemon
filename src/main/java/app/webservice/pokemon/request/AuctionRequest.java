@@ -4,13 +4,9 @@ import app.webservice.pokemon.model.Card;
 
 public class AuctionRequest {
 
-    private Card card;
+    private String cardId;
     private int quantity;
     private int price;
-
-    public Card getCard() {
-        return card;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -20,9 +16,6 @@ public class AuctionRequest {
         return price;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
-    }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -32,10 +25,18 @@ public class AuctionRequest {
         this.price = price;
     }
 
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
     @Override
     public String toString() {
         return "AuctionRequest{" +
-                "card=" + card +
+                "cardId='" + cardId + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';

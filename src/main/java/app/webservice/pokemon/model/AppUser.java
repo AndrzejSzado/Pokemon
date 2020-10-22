@@ -56,6 +56,15 @@ public class AppUser implements UserDetails {
         }
     }
 
+    public void removeCard(Card card, int quantity){
+        int newQuantity = cards.get(card) - quantity;
+        if (newQuantity <= 0){
+            cards.remove(card);
+        }else {
+            cards.put(card, newQuantity);
+        }
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -78,6 +87,10 @@ public class AppUser implements UserDetails {
 
     public Map<Card, Integer> getCards() {
         return cards;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override

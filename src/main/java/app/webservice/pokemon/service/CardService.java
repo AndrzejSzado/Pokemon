@@ -34,4 +34,8 @@ public class CardService {
         userService.save(loggedUser);
         return randomCards;
     }
+
+    public Optional<Card> findById(String id){
+        return cardRepository.findById(id);
+    }
 }
