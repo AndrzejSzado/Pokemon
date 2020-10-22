@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Market Sell</title>
 </head>
 <body>
+
+<div th:each="card:${cards.keySet()}">
+    <div th:text="${cards.get(card) + 'x'}"></div>
+    <img th:src="${card.imageUrl}">
+    <form action="/market/sell" method="post">
+        <p>Quantity<input th:field="${auctionRequest.quantity}" type="number" min="1" th:max="${cards.get(card)}"></p>
+        <p>Price<input th:field="${auctionRequest.price}" type="number" min="1"></p>
+        <input th:field="${auctionRequest.card}"  type="submit" value="Sell">
+    </form>
+</div>
+
 
 </body>
 </html>

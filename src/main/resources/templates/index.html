@@ -13,6 +13,8 @@
         <li class="toolbar"><a th:if="${logged}" href="/logout">Log out</a></li>
         <li class="toolbar"><a th:if="${logged}" href="/my-cards">My Cards</a></li>
         <li class="toolbar"><a th:if="${logged}" href="/booster">Open Booster</a></li>
+        <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
+        <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
     </ul>
 
     <p>Status zalogowanego <p th:text="${statusInfo}"></p></p>
