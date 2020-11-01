@@ -77,17 +77,18 @@ ul {
 .slider{
     margin-top: 10px;
     display: block;
-    width:70%;
-    height: 700px;
+    width:70vw;
+    height: 70vh;
     border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
     overflow:hidden;
+    z-index: 0;
 }
 
 .slides{
-    width: 400%;
-    height: 700px;
+    width: 400vw;
+    height: 70vh;
     display: flex;
 }
 
@@ -96,22 +97,22 @@ ul {
 }
 
 .slide {
-    width:500 px;
+    width:70vw;
     transition: 2s;
 }
 
 .slide img{
-    width: 1344px;
-    height:700px;
+    width: 70vw;
+    height:70vh;
 
 }
 
 .navigation-manual {
     position:absolute;
-    width: 1344px;
+    width: 70%;
     display: flex;
     justify-content: center;
-    top: 860px;
+    top: 88vh;
 }
 
 .manual-btn {
@@ -135,11 +136,11 @@ ul {
 }
 
 #radio2:checked ~ .first{
-    margin-left: -25%;
+    margin-left: -70vw;
 }
 
 #radio3:checked ~ .first{
-    margin-left: -50%;
+    margin-left: -140vw;
 }
 
 .navigation-auto{
