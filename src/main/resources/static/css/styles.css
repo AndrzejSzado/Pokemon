@@ -77,7 +77,7 @@ ul {
 .slider{
     margin-top: 10px;
     display: block;
-    width:70vw;
+    width:65vw;
     height: 70vh;
     border-radius: 10px;
     margin-left: auto;
@@ -97,7 +97,7 @@ ul {
 }
 
 .slide {
-    width:70vw;
+    width:65vw;
     transition: 2s;
 }
 
@@ -109,7 +109,7 @@ ul {
 
 .navigation-manual {
     position:absolute;
-    width: 70%;
+    width: 65%;
     display: flex;
     justify-content: center;
     top: 88vh;
@@ -136,11 +136,11 @@ ul {
 }
 
 #radio2:checked ~ .first{
-    margin-left: -70vw;
+    margin-left: -65vw;
 }
 
 #radio3:checked ~ .first{
-    margin-left: -140vw;
+    margin-left: -130vw;
 }
 
 .navigation-auto{
