@@ -2,15 +2,27 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login-style.css}" />
     <meta charset="UTF-8">
     <title>Log in</title>
 </head>
 <body>
-    <form action="/login" method="post">
-        <p>Email<input name="username" type="email"/></p>
-        <p>Password<input name="password" type="password"/></p>
-        <input type="submit"/>
-    </form>
+    <div class="middle-background">
+        <ul>
+            <li id="toolbar-pokemon" class="toolbar"><a href="/">Home Page<img id="mini-pokeball" src="../image/pokeball2.png"/></a></li>
+            <li class="toolbar"><a th:if="${!logged}" href="/register">Register</a></li>
+            <li class="toolbar"><a th:if="${!logged}" href="/login">Log in</a></li>
+        </ul>
 
+        <div class="login-container">
+            <span id="login-text">Log in</span>
+            <form action="/login" method="post">
+            <img src="../image/pokemon-team.jpg" id="team-image">
+            <span class="login-text">Email</span><br><input name="username" type="email"/>
+            <span class="login-text">Password</span><br><input name="password" type="password"/>
+            <input type="submit"/>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

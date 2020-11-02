@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +10,27 @@ h1 {
 }
 
 body {
-    margin-top:50px;
-    /* background-image: url(../image/5RDCHT.jpg);*/
-    /* min-height: 100vh; */
-    /* background-position: center top;
+    background-image: url(../image/background.jpeg);
+    min-height: 100vh;
+    background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed;*/
-    background-color: black;
+    background-attachment: fixed;
+}
+
+.middle-background {
+    margin-top:0px;
+    width: 80vw;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url(../image/middle-texture.jpg);*/
+    min-height: 100vh;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
 }
 
 p {
@@ -68,21 +82,26 @@ ul {
 }
 
 #logo {
+    margin-top: 100px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 20%;
+    margin-left: 33vw;
+    margin-right: 33vw;
+    width: 14%;
+    position:absolute;
+    z-index:1;
 }
 
 .slider{
-    margin-top: 10px;
+    margin-top: 90px;
     display: block;
     width:65vw;
     height: 70vh;
     border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
+    border: solid gray;
+    margin-left: 7vw;
+    margin-right: 7vw;
     overflow:hidden;
+    position:absolute;
     z-index: 0;
 }
 
@@ -109,10 +128,12 @@ ul {
 
 .navigation-manual {
     position:absolute;
-    width: 65%;
+    width: 70%;
     display: flex;
-    justify-content: center;
-    top: 88vh;
+    margin-left:30vw;
+    margin-right: 30vw;
+    margin-top:60vh;
+    z-index:1;
 }
 
 .manual-btn {
@@ -121,6 +142,7 @@ ul {
    border-radius: 10px;
    cursor:pointer;
    transition: 1s;
+
 }
 
 .manual-btn:not(:last-child){

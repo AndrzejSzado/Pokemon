@@ -1,0 +1,55 @@
+.login-container {
+    position:absolute;
+    margin-top: 10vh;
+    width: 30%;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    background-color: #333;
+    padding: 8px;
+    border: 5px solid white;
+}
+
+#login-text {
+    font-size: 40px;
+    color: white;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+    text-align:center;
+    padding:12px;
+}
+
+#team-image {
+    width: 100%;
+
+}
+
+input[type=email], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+input[type=submit] {
+  width:100%;
+  display:block;
+  background-color: #333;
+  color: white;
+  padding: 14px 20px;
+  margin-left: auto;
+  margin-right: auto;
+  border-color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+    opacity: 0.8;
+}
+
+.login-text {
+  display:block;
+  color: white;
+}
