@@ -17,12 +17,13 @@
             <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
             <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
         </ul>
-
-        <form th:object="${appUser}" action="/register" method="post">
-            <p>Email<input th:field="${appUser.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-            <p>Password<input th:field="${appUser.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
-            <input type="submit"/>
-        </form>
+        <div class="register">
+            <form th:object="${appUser}" action="/register" method="post">
+                <p>Email<input th:field="${appUser.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+                <p>Password<input th:field="${appUser.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+                <input type="submit"/>
+            </form>
+        </div>
     </div>
 </body>
 </html>

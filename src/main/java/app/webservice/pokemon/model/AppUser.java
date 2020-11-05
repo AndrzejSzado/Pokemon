@@ -1,5 +1,6 @@
 package app.webservice.pokemon.model;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@Getter
 public class AppUser implements UserDetails {
 
     @Id
@@ -16,6 +18,7 @@ public class AppUser implements UserDetails {
 
     private String name;
     private String password;
+    private int money;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Card,Integer> cards = new HashMap<>();
@@ -23,6 +26,7 @@ public class AppUser implements UserDetails {
     public AppUser(String email, String password) {
         this.name = email;
         this.password = password;
+        this.money = 1_000;
     }
 
     private AppUser() {
@@ -31,11 +35,6 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -85,13 +84,14 @@ public class AppUser implements UserDetails {
         return true;
     }
 
-    public Map<Card, Integer> getCards() {
-        return cards;
+    public void pay(int amount){
+        money = money - amount;
     }
 
-    public int getId() {
-        return id;
+    public void add(int amount){
+        money = money - amount;
     }
+
 
     @Override
     public String toString() {

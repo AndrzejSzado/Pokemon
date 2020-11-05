@@ -63,4 +63,13 @@ public class UserService implements UserDetailsService {
     public void save(AppUser appUser){
         repository.save(appUser);
     }
+
+    public String getUsername(int id){
+        return repository.findById(id).orElseThrow().getUsername();
+    }
+
+    public AppUser getUserById(int id){
+        return repository.findById(id).orElseThrow();
+    }
+
 }

@@ -192,3 +192,13 @@ ul {
 #radio3:checked ~ .navigation-auto .auto-btn3{
     background: white;
 }
+
+.market-buy {
+    color: white;
+}
+.register {
+    margin-top: 100px;
+}
+.booster {
+    margin-top: 100px;
+}

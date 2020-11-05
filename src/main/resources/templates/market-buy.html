@@ -18,6 +18,20 @@
             <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
         </ul>
 
+        <div th:each="auction:${data.auctions}">
+            <div class="market-buy">
+                <div th:text="'Seller: ' + ${auction.username}"></div>
+                <img th:src="${auction.imageUrl}">
+                <div th:text="'Quantity: ' + ${auction.quantity}"></div>
+                <div th:text="'Price: ' +${auction.price}"></div>
+<!--                <div th:text="${auction.auctionId}"></div>-->
+                <form action="/market/buy" th:object="${request}" method="post">
+                    <input type="number" name="quantity" min="1"></p>
+                    <input type="hidden" name="auctionId" th:value = "${auction.auctionId}" >
+                    <input type="submit" value="Buy" th:disabled="${auction.price > data.buyerMoney}">
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

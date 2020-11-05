@@ -2,7 +2,7 @@ package app.webservice.pokemon.request;
 
 import app.webservice.pokemon.model.Card;
 
-public class AuctionRequest {
+public class AuctionSellRequest {
 
     private String cardId;
     private int quantity;

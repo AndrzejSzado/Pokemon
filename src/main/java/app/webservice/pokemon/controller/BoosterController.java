@@ -30,7 +30,7 @@ public class BoosterController {
     public String openBoosterCards(Model model){
         List<Card> cards = cardService.openRandomBooster();
         model.addAttribute("cards",cards );
-        return "booster";
+        return "redirect:/booster";
     }
 
 }

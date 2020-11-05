@@ -1,7 +1,9 @@
 package app.webservice.pokemon.controller;
 
+import app.webservice.pokemon.model.Auction;
 import app.webservice.pokemon.model.Card;
-import app.webservice.pokemon.request.AuctionRequest;
+import app.webservice.pokemon.request.AuctionBuyRequest;
+import app.webservice.pokemon.request.AuctionSellRequest;
 import app.webservice.pokemon.service.AuctionService;
 import app.webservice.pokemon.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -30,18 +32,18 @@ public class MarketController {
         Map<Card, Integer> cards = userService.getLoggedUserOrThrow().getCards();
         model.addAttribute("cards", cards);
         model.addAttribute("logged", userService.isLogged());
-        AuctionRequest auctionRequest = new AuctionRequest();
+        AuctionSellRequest auctionRequest = new AuctionSellRequest();
         model.addAttribute(auctionRequest);
         return "market-sell";
     }
 
     @PostMapping("/sell")
-    public String sellCard(@ModelAttribute("auctionRequest") AuctionRequest auctionRequest, BindingResult bindingResult){
+    public String sellCard(@ModelAttribute("auctionRequest") AuctionSellRequest auctionSellRequest, BindingResult bindingResult){
         if (bindingResult.hasErrors()){
             return "market-sell";
         }
-        auctionService.createAuction(auctionRequest);
-        System.out.println(auctionRequest);
+        auctionService.createAuction(auctionSellRequest);
+
 
         return "redirect:/market/sell";
     }
@@ -49,9 +51,16 @@ public class MarketController {
     @GetMapping("/buy")
     public String getBuyPage(Model model){
         model.addAttribute("logged", userService.isLogged());
+        model.addAttribute("data",auctionService.getAuctionPageData());
+        model.addAttribute("request", new AuctionBuyRequest());
         return "market-buy";
     }
 
+    @PostMapping("/buy")
+    public String buyCard(@ModelAttribute("request") AuctionBuyRequest request){
+        System.out.println(request);
+        return "redirect:/market/buy";
+    }
 
 
 }

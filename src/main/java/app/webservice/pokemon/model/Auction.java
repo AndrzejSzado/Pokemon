@@ -20,6 +20,9 @@ public class Auction {
     private int quantity;
     private int userId;
 
+    public Auction() {
+    }
+
     public Auction(Card card, int price, int quantity, int userId) {
         this.card = card;
         this.price = price;

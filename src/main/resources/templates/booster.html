@@ -17,13 +17,14 @@
             <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
             <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
         </ul>
-
-        <form action="/booster" method="post">
-            <input type="submit">
-        </form>
-        <div th:each="card:${cards}">
-            <div th:text="${card.name}"></div>
-            <img th:src="${card.imageUrl}">
+        <div class="booster">
+            <form action="/booster" method="post">
+                <input type="submit">
+            </form>
+            <div th:each="card:${cards}">
+                <div th:text="${card.name}"></div>
+                <img th:src="${card.imageUrl}">
+            </div>
         </div>
     </div>
 </body>
