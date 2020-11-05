@@ -58,7 +58,7 @@ public class MarketController {
 
     @PostMapping("/buy")
     public String buyCard(@ModelAttribute("request") AuctionBuyRequest request){
-        System.out.println(request);
+        auctionService.buyAuction(request);
         return "redirect:/market/buy";
     }
 
