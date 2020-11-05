@@ -29,6 +29,7 @@ public class MarketController {
     public String getSellPage(Model model){
         Map<Card, Integer> cards = userService.getLoggedUserOrThrow().getCards();
         model.addAttribute("cards", cards);
+        model.addAttribute("logged", userService.isLogged());
         AuctionRequest auctionRequest = new AuctionRequest();
         model.addAttribute(auctionRequest);
         return "market-sell";
@@ -46,7 +47,8 @@ public class MarketController {
     }
 
     @GetMapping("/buy")
-    public String getBuyPage(){
+    public String getBuyPage(Model model){
+        model.addAttribute("logged", userService.isLogged());
         return "market-buy";
     }
 

@@ -25,6 +25,7 @@ public class RegisterController {
     public String getRegisterPage(Model model){
         UserRequest userRequest = new UserRequest();
         model.addAttribute("appUser", userRequest);
+        model.addAttribute("logged", userService.isLogged());
         return "register";
     }
 

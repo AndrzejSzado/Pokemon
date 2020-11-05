@@ -20,7 +20,7 @@ public class MyCardsController {
     public String getMyCards(Model model){
         Map<Card, Integer> cards = userService.getLoggedUserOrThrow().getCards();
         model.addAttribute("cards", cards);
-
+        model.addAttribute("logged", userService.isLogged());
         return "my-cards";
     }
 }
