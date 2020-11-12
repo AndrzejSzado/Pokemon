@@ -1,5 +1,6 @@
 package app.webservice.pokemon.service;
 
+import app.webservice.pokemon.exceptions.AuctionServiceException;
 import app.webservice.pokemon.model.AppUser;
 import app.webservice.pokemon.model.Auction;
 import app.webservice.pokemon.model.Card;
@@ -71,17 +72,43 @@ public class AuctionService {
 
     public void buyAuction(AuctionBuyRequest request){
         Auction auction = auctionRepository
-                .findById(request.getAuctionId()).orElseThrow(); //TODO AuctionServiceException with message
-        //TODO validation money, quantity,
+                .findById(request.getAuctionId())
+                .orElseThrow(() -> new AuctionServiceException("Auction does not exist"));
 
         int userId = auction.getUserId();
         AppUser seller = userService.getUserById(userId);
-        userService.getLoggedUserOrThrow().pay(auction.getPrice());
-        seller.add(auction.getPrice());
-        userService.save(userService.getLoggedUserOrThrow());
-        userService.save(seller);
-        auctionRepository.delete(auction);
+        AppUser loggedUser = userService.getLoggedUserOrThrow();
+        int totalAmount = auction.getPrice() * request.getQuantity();
+        System.out.println(loggedUser.getMoney());
+
+        //TODO split if's
+        if(cantBuy(request, auction, loggedUser, totalAmount)){
+            throw new AuctionServiceException("Not enough money, or quantity too high");
+        }
+
+        if (areDifferentUsers(seller, loggedUser)){
+            loggedUser.pay(totalAmount);
+            seller.add(totalAmount);
+            userService.save(seller);
+        }
+
+        loggedUser.addCard(auction.getCard(), auction.getQuantity());
+        userService.save(loggedUser);
+        auction.decreaseQuantity(request.getQuantity());
+
+        if(auction.areNoCards()){
+            auctionRepository.delete(auction);
+        } else {
+            save(auction);
+        }
     }
 
+    private boolean areDifferentUsers(AppUser seller, AppUser loggedUser) {
+        return !loggedUser.equals(seller);
+    }
 
+    private boolean cantBuy(AuctionBuyRequest request, Auction auction, AppUser loggedUser, int totalAmount) {
+        return loggedUser.getMoney() < totalAmount ||
+                request.getQuantity() > auction.getQuantity();
+    }
 }

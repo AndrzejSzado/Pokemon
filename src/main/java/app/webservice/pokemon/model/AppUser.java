@@ -43,15 +43,15 @@ public class AppUser implements UserDetails {
     }
 
     public void addCards(Collection<Card> newCards){
-        newCards.forEach(this::addCard);
+        newCards.forEach(c -> addCard(c,1));
     }
 
-    public void addCard(Card card){
+    public void addCard(Card card, int quantity){
         if (cards.containsKey(card)){
-            cards.put(card, cards.get(card)+1);
+            cards.put(card, cards.get(card)+quantity);
         }
         else {
-            cards.put(card, 1);
+            cards.put(card, quantity);
         }
     }
 
@@ -89,9 +89,21 @@ public class AppUser implements UserDetails {
     }
 
     public void add(int amount){
-        money = money - amount;
+        money = money + amount;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser appUser = (AppUser) o;
+        return id == appUser.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public String toString() {

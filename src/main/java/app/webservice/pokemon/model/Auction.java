@@ -30,6 +30,14 @@ public class Auction {
         this.userId = userId;
     }
 
+    public void decreaseQuantity(int quantity){
+        this.quantity -= quantity;
+    }
+
+    public boolean areNoCards(){
+        return quantity == 0;
+    }
+
     public int getId() {
         return id;
     }

@@ -24,9 +24,9 @@ public class CardService {
         Random random = new Random();
         List<Card> cards = cardRepository.findAll();
         List<Card> randomCards = new ArrayList<>();
-
+        int randomNumber = random.nextInt(cards.size()); // to delete
         for (int i = 0; i < 5; i++) {
-            int randomNumber = random.nextInt(cards.size());
+           // int randomNumber = random.nextInt(cards.size());
             Card card = cards.get(randomNumber);
             randomCards.add(card);
         }
