@@ -3,14 +3,17 @@ package app.webservice.pokemon.controller;
 import app.webservice.pokemon.model.Card;
 import app.webservice.pokemon.service.CardService;
 import app.webservice.pokemon.service.UserService;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
-public class BoosterController {
+public class BoosterController extends BaseController {
 
     private CardService cardService;
     private UserService userService;
@@ -21,16 +24,17 @@ public class BoosterController {
     }
 
     @GetMapping("/booster")
-    public String getBoosterPage(Model model){
-        model.addAttribute("logged", userService.isLogged());
+    public String getBoosterPage(HttpSession session){
+        updateSessionData(session);
         return "booster";
     }
 
     @PostMapping("/booster")
-    public String openBoosterCards(Model model){
+    public String openBoosterCards(Model model, HttpSession session){
         List<Card> cards = cardService.openRandomBooster();
         model.addAttribute("cards",cards );
-        return "redirect:/booster";
+        updateSessionData(session);
+        return "booster";
     }
 
 }

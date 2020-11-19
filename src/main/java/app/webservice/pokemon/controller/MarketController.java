@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/market")
-public class MarketController {
+public class MarketController extends BaseController{
     private UserService userService;
     private AuctionService auctionService;
 
@@ -28,37 +29,37 @@ public class MarketController {
     }
 
     @GetMapping("/sell")
-    public String getSellPage(Model model){
+    public String getSellPage(Model model, HttpSession session){
         Map<Card, Integer> cards = userService.getLoggedUserOrThrow().getCards();
         model.addAttribute("cards", cards);
-        model.addAttribute("logged", userService.isLogged());
         AuctionSellRequest auctionRequest = new AuctionSellRequest();
         model.addAttribute(auctionRequest);
+        updateSessionData(session);
         return "market-sell";
     }
 
     @PostMapping("/sell")
-    public String sellCard(@ModelAttribute("auctionRequest") AuctionSellRequest auctionSellRequest, BindingResult bindingResult){
+    public String sellCard(@ModelAttribute("auctionRequest") AuctionSellRequest auctionSellRequest, BindingResult bindingResult, HttpSession session){
         if (bindingResult.hasErrors()){
             return "market-sell";
         }
         auctionService.createAuction(auctionSellRequest);
-
-
+        updateSessionData(session);
         return "redirect:/market/sell";
     }
 
     @GetMapping("/buy")
-    public String getBuyPage(Model model){
-        model.addAttribute("logged", userService.isLogged());
+    public String getBuyPage(Model model, HttpSession session){
         model.addAttribute("data",auctionService.getAuctionPageData());
         model.addAttribute("request", new AuctionBuyRequest());
+        updateSessionData(session);
         return "market-buy";
     }
 
     @PostMapping("/buy")
-    public String buyCard(@ModelAttribute("request") AuctionBuyRequest request){
+    public String buyCard(@ModelAttribute("request") AuctionBuyRequest request, HttpSession session){
         auctionService.buyAuction(request);
+        updateSessionData(session);
         return "redirect:/market/buy";
     }
 

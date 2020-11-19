@@ -6,10 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
-public class MyCardsController {
+public class MyCardsController extends BaseController{
     private UserService userService;
 
     public MyCardsController(UserService userService) {
@@ -17,10 +18,10 @@ public class MyCardsController {
     }
 
     @GetMapping("/my-cards")
-    public String getMyCards(Model model){
+    public String getMyCards(Model model, HttpSession session){
         Map<Card, Integer> cards = userService.getLoggedUserOrThrow().getCards();
         model.addAttribute("cards", cards);
-        model.addAttribute("logged", userService.isLogged());
+        updateSessionData(session);
         return "my-cards";
     }
 }

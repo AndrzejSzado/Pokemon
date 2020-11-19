@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
-public class LoginController {
+public class LoginController extends BaseController{
 
     private UserService userService;
 
@@ -16,8 +18,8 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String getLoginPage(Model model){
-        model.addAttribute("logged", userService.isLogged());
+    public String getLoginPage(HttpSession session){
+        updateSessionData(session);
         return "login";
     }
 

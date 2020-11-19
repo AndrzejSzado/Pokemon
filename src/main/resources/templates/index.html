@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{toolbar.html}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
     <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
@@ -7,63 +9,53 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="middle-background">
-    <ul>
-        <li id="toolbar-pokemon" class="toolbar"><a href="/">Home Page<img id="mini-pokeball" src="../image/pokeball2.png"/></a></li>
-        <li class="toolbar"><a th:if="${!logged}" href="/register">Register</a></li>
-        <li class="toolbar"><a th:if="${!logged}" href="/login">Log in</a></li>
-        <li class="toolbar"><a th:if="${logged}" href="/logout">Log out</a></li>
-        <li class="toolbar"><a th:if="${logged}" href="/my-cards">My Cards</a></li>
-        <li class="toolbar"><a th:if="${logged}" href="/booster">Open Booster</a></li>
-        <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
-        <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
-    </ul>
-    <img id="logo" src="../image/logo.png">
+    <section layout:fragment="content">
+        <div class="middle-background">
+            <img id="logo" src="../image/logo.png">
 
-    <!-- slide start -->
-    <div class="slider">
-        <div class="slides">
-            <input type="radio" name="radio-btn" id="radio1">
-            <input type="radio" name="radio-btn" id="radio2">
-            <input type="radio" name="radio-btn" id="radio3">
+            <!-- slide start -->
+            <div class="slider">
+                <div class="slides">
+                    <input type="radio" name="radio-btn" id="radio1">
+                    <input type="radio" name="radio-btn" id="radio2">
+                    <input type="radio" name="radio-btn" id="radio3">
 
-            <div class="slide first">
-                <img src="../image/1.jpg">
-            </div>
-            <div class="slide">
-                <img src="../image/2.jpg">
-            </div>
-            <div class="slide">
-                <img src="../image/3.jpg">
+                    <div class="slide first">
+                        <img src="../image/1.jpg">
+                    </div>
+                    <div class="slide">
+                        <img src="../image/2.jpg">
+                    </div>
+                    <div class="slide">
+                        <img src="../image/3.jpg">
+                    </div>
+
+                    <div class="navigation-auto">
+                        <div class="auto-btn1"></div>
+                        <div class="auto-btn2"></div>
+                        <div class="auto-btn3"></div>
+                    </div>
+
+                    <div class="navigation-manual">
+                        <label for="radio1" class="manual-btn"></label>
+                        <label for="radio2" class="manual-btn"></label>
+                        <label for="radio3" class="manual-btn"></label>
+                    </div>
+                </div>
             </div>
 
-            <div class="navigation-auto">
-                <div class="auto-btn1"></div>
-                <div class="auto-btn2"></div>
-                <div class="auto-btn3"></div>
-            </div>
-
-            <div class="navigation-manual">
-                <label for="radio1" class="manual-btn"></label>
-                <label for="radio2" class="manual-btn"></label>
-                <label for="radio3" class="manual-btn"></label>
-            </div>
+            <script type="text/javascript">
+                var counter = 1;
+                setInterval(function(){
+                    document.getElementById('radio' + counter).checked = true;
+                    counter++;
+                    if(counter > 3){
+                        counter = 1;
+                    }
+                }, 5000);
+            </script>
+            <!-- slide end -->
         </div>
-    </div>
-
-    <script type="text/javascript">
-        var counter = 1;
-        setInterval(function(){
-            document.getElementById('radio' + counter).checked = true;
-            counter++;
-            if(counter > 3){
-                counter = 1;
-            }
-        }, 5000);
-    </script>
-    <!-- slide end -->
-
-    <p>Status zalogowanego <p th:text="${statusInfo}"></p></p>
-    </div>
+    </section>
 </body>
 </html>

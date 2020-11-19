@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{toolbar.html}">
 <head>
     <meta charset="UTF-8">
     <title>Market Sell</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
 </head>
 <body>
-    <div class="middle-background">
-        <ul>
-            <li id="toolbar-pokemon" class="toolbar"><a href="/">Home Page<img id="mini-pokeball" src="../image/pokeball2.png"/></a></li>
-            <li class="toolbar"><a th:if="${!logged}" href="/register">Register</a></li>
-            <li class="toolbar"><a th:if="${!logged}" href="/login">Log in</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/logout">Log out</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/my-cards">My Cards</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/booster">Open Booster</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
-        </ul>
-
-        <div th:each="card:${cards.keySet()}">
-            <div th:text="${cards.get(card) + 'x'}"></div>
-            <img th:src="${card.imageUrl}">
-            <form action="/market/sell" th:object="${auctionSellRequest}" method="post">
-                <p>Quantity<input name="quantity" type="number" min="1" th:max="${cards.get(card)}"></p>
-                <p>Price<input name="price" type="number" min="1"></p>
-                <input type="hidden" name="cardId" th:value = "${card.id}" >
-                <input type="submit" value="Sell">
-            </form>
+    <section layout:fragment="content">
+        <div class="middle-background">
+            <div th:each="card:${cards.keySet()}">
+                <div th:text="${cards.get(card) + 'x'}"></div>
+                <img th:src="${card.imageUrl}">
+                <form action="/market/sell" th:object="${auctionSellRequest}" method="post">
+                    <p>Quantity<input name="quantity" type="number" min="1" th:max="${cards.get(card)}"></p>
+                    <p>Price<input name="price" type="number" min="1"></p>
+                    <input type="hidden" name="cardId" th:value = "${card.id}" >
+                    <input type="submit" value="Sell">
+                </form>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
 </html>

@@ -2,11 +2,12 @@ package app.webservice.pokemon.controller;
 
 import app.webservice.pokemon.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
-public class HomeController {
+public class HomeController extends BaseController{
     private UserService userService;
 
     public HomeController(UserService userService) {
@@ -14,9 +15,8 @@ public class HomeController {
     }
 
     @GetMapping
-    public String getHomePage(Model model){
-        model.addAttribute("statusInfo", userService.getStatus());
-        model.addAttribute("logged", userService.isLogged());
+    public String getHomePage(HttpSession session){
+        updateSessionData(session);
         return "index";
     }
 

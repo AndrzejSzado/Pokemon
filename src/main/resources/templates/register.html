@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{toolbar.html}">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
     <meta charset="UTF-8">
     <title>Register</title>
 </head>
 <body>
-    <div class="middle-background">
-        <ul>
-            <li id="toolbar-pokemon" class="toolbar"><a href="/">Home Page<img id="mini-pokeball" src="../image/pokeball2.png"/></a></li>
-            <li class="toolbar"><a th:if="${!logged}" href="/register">Register</a></li>
-            <li class="toolbar"><a th:if="${!logged}" href="/login">Log in</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/logout">Log out</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/my-cards">My Cards</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/booster">Open Booster</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/market/sell">Sell Cards</a></li>
-            <li class="toolbar"><a th:if="${logged}" href="/market/buy">Buy cards</a></li>
-        </ul>
-        <div class="register">
-            <form th:object="${appUser}" action="/register" method="post">
-                <p>Email<input th:field="${appUser.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
-                <p>Password<input th:field="${appUser.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
-                <input type="submit"/>
-            </form>
+    <section layout:fragment="content">
+        <div class="middle-background">
+
+            <div class="register">
+                <form th:object="${appUser}" action="/register" method="post">
+                    <p>Email<input th:field="${appUser.email}" name="email" type="email"/></p><p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
+                    <p>Password<input th:field="${appUser.password}" name="password" type="password"/></p><p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
+                    <input type="submit"/>
+                </form>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
 </html>
