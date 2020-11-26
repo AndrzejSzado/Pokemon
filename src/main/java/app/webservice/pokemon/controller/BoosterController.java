@@ -1,5 +1,6 @@
 package app.webservice.pokemon.controller;
 
+import app.webservice.pokemon.exceptions.CardServiceException;
 import app.webservice.pokemon.model.Card;
 import app.webservice.pokemon.service.CardService;
 import app.webservice.pokemon.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -24,17 +26,22 @@ public class BoosterController extends BaseController {
     }
 
     @GetMapping("/booster")
-    public String getBoosterPage(HttpSession session){
+    public String getBoosterPage(Model model,HttpSession session){
+        model.addAttribute("cost",CardService.BOOSTER_COST);
         updateSessionData(session);
         return "booster";
     }
 
     @PostMapping("/booster")
-    public String openBoosterCards(Model model, HttpSession session){
-        List<Card> cards = cardService.openRandomBooster();
-        model.addAttribute("cards",cards );
-        updateSessionData(session);
-        return "booster";
+    public String openBoosterCards(Model model, HttpSession session, RedirectAttributes redirect){
+        List<Card> cards;
+        try {
+            cards = cardService.openRandomBooster();
+        } catch (CardServiceException e) {
+            return redirectToHome(e.getMessage(), MessageType.ERROR, model, session);
+        }
+        redirect.addFlashAttribute("cards",cards );
+        return "redirect:/booster";
     }
 
 }

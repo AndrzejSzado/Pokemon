@@ -9,6 +9,12 @@ h1 {
     color: white;
 }
 
+h2 {
+    position:absolute;
+    margin-top: 100px;
+    color:white;
+}
+
 body {
     background-image: url(../image/background.jpeg);
     min-height: 100vh;
@@ -53,13 +59,15 @@ ul {
     float: right;
 }
 
-.toolbar a {
+.toolbar-item {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+
+
 
 .toolbar a:hover {
     background-color: #111;
@@ -200,5 +208,5 @@ ul {
     margin-top: 100px;
 }
 .booster {
-    margin-top: 100px;
+    margin-top: 50px;
 }

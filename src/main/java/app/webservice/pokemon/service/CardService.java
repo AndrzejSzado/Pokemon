@@ -1,6 +1,7 @@
 package app.webservice.pokemon.service;
 
 
+import app.webservice.pokemon.exceptions.CardServiceException;
 import app.webservice.pokemon.model.AppUser;
 import app.webservice.pokemon.model.Card;
 import app.webservice.pokemon.repository.CardRepository;
@@ -11,8 +12,10 @@ import java.util.*;
 
 @Service
 public class CardService {
+    public final static int BOOSTER_COST = 100;
     private CardRepository cardRepository;
     private UserService userService;
+
 
     public CardService(CardRepository cardRepository, UserService userService) {
         this.cardRepository = cardRepository;
@@ -22,6 +25,11 @@ public class CardService {
     public List<Card> openRandomBooster(){
         AppUser loggedUser = userService.getLoggedUserOrThrow();
         Random random = new Random();
+
+        if (loggedUser.getMoney() - BOOSTER_COST < 0){
+            throw new CardServiceException("Not enough money to buy a booster");
+        }
+
         List<Card> cards = cardRepository.findAll();
         List<Card> randomCards = new ArrayList<>();
         int randomNumber = random.nextInt(cards.size()); // to delete
@@ -30,6 +38,7 @@ public class CardService {
             Card card = cards.get(randomNumber);
             randomCards.add(card);
         }
+        loggedUser.pay(BOOSTER_COST);
         loggedUser.addCards(randomCards);
         userService.save(loggedUser);
         return randomCards;

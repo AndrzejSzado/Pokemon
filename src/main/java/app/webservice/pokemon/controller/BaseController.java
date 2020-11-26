@@ -17,4 +17,19 @@ public abstract class BaseController {
         SessionViewModel sessionViewModel = sessionDataUpdater.updateSessionData();
         session.setAttribute("myData", sessionViewModel);
     }
+
+    public String redirectToHome(String message, MessageType messageType, Model model, HttpSession session){
+        model.addAttribute("message", message);
+        model.addAttribute("messageType", messageType);
+        updateSessionData(session);
+        return "index";
+
+    }
+
+    public String redirectToHome(Model model,HttpSession session){
+        redirectToHome("", MessageType.NONE, model, session);
+        return "index";
+    }
+
+
 }

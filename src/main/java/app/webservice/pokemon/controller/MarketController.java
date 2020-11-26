@@ -1,5 +1,6 @@
 package app.webservice.pokemon.controller;
 
+import app.webservice.pokemon.exceptions.AuctionServiceException;
 import app.webservice.pokemon.model.Auction;
 import app.webservice.pokemon.model.Card;
 import app.webservice.pokemon.request.AuctionBuyRequest;
@@ -57,8 +58,12 @@ public class MarketController extends BaseController{
     }
 
     @PostMapping("/buy")
-    public String buyCard(@ModelAttribute("request") AuctionBuyRequest request, HttpSession session){
-        auctionService.buyAuction(request);
+    public String buyCard(@ModelAttribute("request") AuctionBuyRequest request, HttpSession session, Model model){
+        try {
+            auctionService.buyAuction(request);
+        } catch (AuctionServiceException e) {
+            return redirectToHome(e.getMessage(), MessageType.ERROR, model,session);
+        }
         updateSessionData(session);
         return "redirect:/market/buy";
     }

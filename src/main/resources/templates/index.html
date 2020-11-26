@@ -13,6 +13,7 @@
         <div class="middle-background">
             <img id="logo" src="../image/logo.png">
 
+            <h2 th:if="${messageType.name() != 'NONE'}" th:text="${message}"></h2>
             <!-- slide start -->
             <div class="slider">
                 <div class="slides">

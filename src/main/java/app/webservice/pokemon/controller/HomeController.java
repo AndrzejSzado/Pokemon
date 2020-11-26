@@ -2,6 +2,7 @@ package app.webservice.pokemon.controller;
 
 import app.webservice.pokemon.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
@@ -15,8 +16,8 @@ public class HomeController extends BaseController{
     }
 
     @GetMapping
-    public String getHomePage(HttpSession session){
-        updateSessionData(session);
+    public String getHomePage(Model model, HttpSession session){
+        redirectToHome(model, session);
         return "index";
     }
 

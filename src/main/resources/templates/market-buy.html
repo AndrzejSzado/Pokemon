@@ -18,7 +18,7 @@
                     <div th:text="'Price: ' +${auction.price}"></div>
     <!--                <div th:text="${auction.auctionId}"></div>-->
                     <form action="/market/buy" th:object="${request}" method="post">
-                        <input type="number" name="quantity" min="1"></p>
+                        <input type="number" name="quantity" min="1" placeholder="Quantity" th:max="${auction.quantity}"></p>
                         <input type="hidden" name="auctionId" th:value = "${auction.auctionId}" >
                         <input type="submit" value="Buy" th:disabled="${auction.price > data.buyerMoney}">
                     </form>
