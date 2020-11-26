@@ -17,8 +17,11 @@ public class HomeController extends BaseController{
 
     @GetMapping
     public String getHomePage(Model model, HttpSession session){
-        redirectToHome(model, session);
-        return "index";
+        if (userService.isLogged() && !userService.hasUserLoggedToday()){
+            userService.updateLastLoginDate();
+            return redirectToHome("You've got extra cash for daily login", MessageType.SUCCESS, model,session);
+        }
+        return redirectToHome(model, session);
     }
 
 }

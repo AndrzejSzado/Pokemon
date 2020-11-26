@@ -1,11 +1,13 @@
 package app.webservice.pokemon.model;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -19,6 +21,7 @@ public class AppUser implements UserDetails {
     private String name;
     private String password;
     private int money;
+    private LocalDate lastLoggedDate = LocalDate.now();
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Card,Integer> cards = new HashMap<>();
@@ -30,6 +33,10 @@ public class AppUser implements UserDetails {
     }
 
     private AppUser() {
+    }
+
+    public void updateLastLoggedDate(){
+        lastLoggedDate = LocalDate.now();
     }
 
     @Override

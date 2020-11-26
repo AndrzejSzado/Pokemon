@@ -11,11 +11,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
 
+    public final static int DAILY_MONEY = 500;
     private UserRepository repository;
     private PasswordEncoder encoder;
 
@@ -60,8 +62,19 @@ public class UserService implements UserDetailsService {
         return getLoggedUser().orElseThrow();
     }
 
+    public boolean hasUserLoggedToday(){
+        return getLoggedUserOrThrow().getLastLoggedDate().isEqual(LocalDate.now());
+    }
+
     public void save(AppUser appUser){
         repository.save(appUser);
+    }
+
+    public void updateLastLoginDate(){
+        AppUser user = getLoggedUserOrThrow();
+        user.add(DAILY_MONEY);
+        user.updateLastLoggedDate();
+        save(user);
     }
 
     public String getUsername(int id){
